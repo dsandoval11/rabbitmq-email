@@ -13,22 +13,9 @@ class Mail {
     });
   }
 
-  public send(email: IEmail | string, callback: (err: Error | null, info: any) => void) {
-    const mailOptions = {
-      from: 'Remitente',
-      to: 'david__2811@gmail.com',
-      subject: 'Asunto',
-      text: 'Contenido del email',
-    };
-    this.transporter.sendMail(mailOptions, callback);
+  public send(email: nodemailer.SendMailOptions, callback: (err: Error | null, info: any) => void) {
+    this.transporter.sendMail(email, callback);
   }
 }
 
-interface IEmail {
-  from: string;
-  to: string;
-  subject: string;
-  text: string;
-}
-
-export { Mail, IEmail };
+export default Mail;

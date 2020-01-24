@@ -5,9 +5,7 @@ import SocketMain from './sockets/socket.main';
 
 class App {
   app: express.Express;
-
   server: http.Server;
-
   io: SocketIO.Server;
 
   constructor() {
