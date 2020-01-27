@@ -22,6 +22,12 @@ function addEmail() {
   }
 }
 
+function clear() {
+  $('#subject').val('');
+  $('#content').val('');
+  $('#email-list').empty();
+}
+
 function sendEmail() {
   const subject = $('#subject').val();
   const content = $('#content').val();
@@ -32,6 +38,7 @@ function sendEmail() {
     to: emails,
   };
   sendEmailSocket(data);
+  clear();
 }
 
 function emailFrom() {
