@@ -2,15 +2,16 @@ import amqp from 'amqplib';
 import { SendMailOptions } from 'nodemailer';
 import Mail from '../tools/mail';
 
-const mail = new Mail();
-
 amqp.connect('amqp://localhost')
   .then((connection: amqp.Connection) => connection.createChannel())
   .then((channel: amqp.Channel) => {
     try {
+      const mail = new Mail();
       console.log('Consumidor iniciado');
-      const cola = 'emails';
+      const cola = 'pruebas';
+      const colaEmails = 'emails';
       channel.assertQueue(cola, { durable: false });
+      channel.assertQueue(colaEmails, { durable: false });
       // No pone en la cola del consumidor hasta que no lo haya procesado
       // El mensaje se enviara a otro consumidor que no este ocupado
       // channel.prefetch(1);
@@ -36,18 +37,18 @@ amqp.connect('amqp://localhost')
       /**
        * COLA ENCARGADA DE ENVIAR EMAILS
        */
-      channel.consume('email', (msg: amqp.ConsumeMessage | null) => {
+      channel.consume(colaEmails, (msg: amqp.ConsumeMessage | null) => {
         let payload: SendMailOptions = {};
         if (msg?.content.toString !== undefined) {
           payload = <SendMailOptions>JSON.parse(msg?.content.toString());
         }
-        mail.send({
-          from: 'david281199@gmail.com',
-          ...payload,
-        }, (err: Error | null, info: any) => {
+        console.log(payload);
+        mail.send(payload, (err: Error | null, info: any) => {
           if (err) {
-            console.log('Error al enviar email');
+            console.log(err);
+            channel.ack(<amqp.Message>msg);
           } else {
+            channel.ack(<amqp.Message>msg); // Confirma el procesamiento de mensaje
             console.log('Email enviado correctamente');
           }
         });

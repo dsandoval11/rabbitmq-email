@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+  <title>Sistema de colas</title>
+</head>
+
+<body>
+  <div class="container pb-4 content mt-5 rounded">
+    <h1 class="text-center">Sistemas de colas con RabbitMQ</h1>
+    <div class="card shadow p-3 mb-5">
+      <div class="card-body">
+        <p>Mi correo: <b id="myemail-text" class="text-lowercase"></b>
+        </p>
+        <div class="input-group">
+          <input id="email" type="email" class="form-control" placeholder="Correo electronico"
+            aria-label="Recipient's username with two button addons" aria-describedby="button-addon4">
+          <div class="input-group-append" id="button-addon4">
+            <button class="btn btn-outline-success" type="button" onclick="addEmail()">Añadir
+              correo</button>
+            <button class="btn btn-primary" type="button" onclick="sendEmail()">Enviar</button>
+          </div>
+        </div>
+
+        <div class="form-group mt-2">
+          <label for="subject">Asunto</label>
+          <input type="text" class="form-control" id="subject" aria-describedby="emailHelp">
+        </div>
+        <textarea class="form-control" id="content" rows="3"></textarea>
+
+        <div class="container mt-5">
+          <h3>Destinatarios</h3>
+          <ul id="email-list" class="list-group"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CORREO DESTINO -->
+  <div class="modal fade" id="modal-myemail" data-backdrop="static" tabindex="-1" role="dialog"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">Correo</h5>
+        </div>
+        <div class="modal-body">
+          <input type="email" class="form-control" id="from" value="">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="emailFrom()">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast-connect" class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+    style="position: absolute; top: 15px; right: 15px;">
+    <div class="toast-header">
+      <strong class="mr-auto" id="toast-title"></strong>
+      <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="toast-body">
+      <p id="toast-body"></p>
+    </div>
+  </div>
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+  <script src="socket.io/socket.io.js"></script>
+  <script src="socket.js"></script>
+  <script src="index.js"></script>
+</body>
+
+</html>

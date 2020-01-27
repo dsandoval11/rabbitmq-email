@@ -1,9 +1,11 @@
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
 
 class Mail {
   transporter: nodemailer.Transporter;
 
   constructor() {
+    dotenv.config();
     this.transporter = nodemailer.createTransport({
       service: 'Gmail',
       auth: {
