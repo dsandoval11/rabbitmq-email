@@ -6,7 +6,7 @@ let from;
 
 function elementList(text) {
   return `<li class="list-group-item d-flex justify-content-between align-items-center">${text}
-      <button type="button" class="btn btn-outline-danger">Eliminar</button>` +
+      <button type="button" class="btn btn-outline-danger" onclick="deleteEmail(${emails.length})">Eliminar</button>` +
     '</li > ';
 }
 
